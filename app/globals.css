@@ -1,26 +1,99 @@
 @import "tailwindcss";
 
+/* ----------------------------------------------------------------
+   YouTube dark-mode design tokens
+-----------------------------------------------------------------*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --yt-bg: #0f0f0f;
+  --yt-bg-raised: #181818;
+  --yt-elevated: #212121;
+  --yt-hover: #272727;
+  --yt-chip: #272727;
+  --yt-border: #303030;
+  --yt-text: #f1f1f1;
+  --yt-text-secondary: #aaaaaa;
+  --yt-red: #ff0000;
+  --yt-red-dark: #cc0000;
+  --yt-blue: #3ea6ff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-yt-bg: var(--yt-bg);
+  --color-yt-bg-raised: var(--yt-bg-raised);
+  --color-yt-elevated: var(--yt-elevated);
+  --color-yt-hover: var(--yt-hover);
+  --color-yt-chip: var(--yt-chip);
+  --color-yt-border: var(--yt-border);
+  --color-yt-text: var(--yt-text);
+  --color-yt-text-secondary: var(--yt-text-secondary);
+  --color-yt-red: var(--yt-red);
+  --color-yt-red-dark: var(--yt-red-dark);
+  --color-yt-blue: var(--yt-blue);
+  --font-sans: var(--font-roboto), Roboto, Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  /* offset anchored scrolls so content isn't hidden under the fixed header */
+  scroll-padding-top: 80px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--yt-bg);
+  color: var(--yt-text);
+  font-family: var(--font-sans);
+}
+
+/* YouTube-style thin scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #5a5a5a transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #5a5a5a;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #717171;
+}
+
+/* Hide scrollbar for horizontal chip rows */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes yt-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: yt-fade-up 0.5s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    animation: none;
+  }
 }
